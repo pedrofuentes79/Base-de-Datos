@@ -1,0 +1,15 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Chinook Database",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "chinook",
+      "Username": "postgres",
+      "Password": "password",
+      "SSLMode": "prefer",
+      "Comment": "Chinook sample database for digital media store"
+    }
+  }
+}
