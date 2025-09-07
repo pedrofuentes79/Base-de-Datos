@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: chinook_postgres
+    environment:
+      POSTGRES_DB: chinook
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - chinook_network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: chinook_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@chinook.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./servers.json:/pgadmin4/servers.json
+    networks:
+      - chinook_network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  pgadmin_data:
+
+networks:
+  chinook_network:
+    driver: bridge

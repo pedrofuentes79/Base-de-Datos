@@ -1,0 +1,17 @@
+# Docker volumes (data persists in Docker, not in git)
+# postgres_data/
+# pgadmin_data/
+
+# Temporary files
+*.tmp
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Downloaded SQL files
+init/Chinook_PostgreSql.sql
+
+# Database connection configuration (contains credentials)
+servers.json
