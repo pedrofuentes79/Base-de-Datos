@@ -25,6 +25,14 @@ if docker-compose ps | grep -q "Up"; then
     echo "✅ Services started successfully!"
     echo ""
 
+    # Ensure pgAdmin user directory exists and servers.json is in place
+    echo "🔧 Setting up pgAdmin configuration..."
+    docker-compose exec pgadmin mkdir -p /var/lib/pgadmin/storage/admin_chinook.com
+    # Backup existing servers.json if it exists, then ensure our config is in place
+    docker-compose exec pgadmin bash -c "if [ -f /var/lib/pgadmin/storage/admin_chinook.com/servers.json ]; then cp /var/lib/pgadmin/storage/admin_chinook.com/servers.json /var/lib/pgadmin/storage/admin_chinook.com/servers.json.backup; fi"
+    echo "✅ pgAdmin configuration ready!"
+    echo ""
+
     # Check if database needs initialization
     TABLE_COUNT=$(docker-compose exec -T postgres psql -U postgres -d chinook -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';" 2>/dev/null | tr -d ' ')
 

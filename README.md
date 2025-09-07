@@ -27,7 +27,7 @@ This setup provides a PostgreSQL database with the Chinook sample database and p
    docker-compose up -d
    ```
 
-   **Note:** The Chinook database will be automatically initialized on first startup.
+   **Note:** The Chinook database and pgAdmin server configuration will be automatically initialized on first startup.
 
 3. **Access pgAdmin:**
    - Open your browser and go to: http://localhost:8080
