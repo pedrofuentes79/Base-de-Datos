@@ -13,3 +13,6 @@ Thumbs.db
 # Downloaded SQL files
 init/Chinook_PostgreSql.sql
 
+# pgAdmin backup files
+pgadmin-config/servers.json.backup*
+

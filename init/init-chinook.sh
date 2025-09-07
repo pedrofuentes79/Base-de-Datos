@@ -5,32 +5,19 @@ echo "Setting up Chinook PostgreSQL database..."
 
 SQL_FILE="/tmp/Chinook_PostgreSql.sql"
 
-# Check if SQL file already exists (avoid re-downloading)
+# The SQL file should be downloaded and copied by the host script
+# Check if SQL file exists in container
 if [ ! -f "$SQL_FILE" ]; then
-    echo "Downloading Chinook database schema..."
-
-    # Try curl first, fallback to wget if curl fails
-    if command -v curl >/dev/null 2>&1; then
-        curl -s -f -o "$SQL_FILE" "https://raw.githubusercontent.com/lerocha/chinook-database/master/ChinookDatabase/DataSources/Chinook_PostgreSql.sql"
-    elif command -v wget >/dev/null 2>&1; then
-        wget -q -O "$SQL_FILE" "https://raw.githubusercontent.com/lerocha/chinook-database/master/ChinookDatabase/DataSources/Chinook_PostgreSql.sql"
-    else
-        echo "ERROR: Neither curl nor wget is available. Please install one of them."
-        exit 1
-    fi
-
-    # Verify download succeeded
-    if [ ! -s "$SQL_FILE" ]; then
-        echo "ERROR: Failed to download Chinook database schema."
-        exit 1
-    fi
+    echo "ERROR: Chinook SQL file not found in container. This should have been copied by the host script."
+    exit 1
 else
-    echo "Using existing Chinook database schema..."
+    echo "Using Chinook database schema..."
 fi
 
 echo "Importing Chinook database data..."
 
-# Import the data (skip DROP DATABASE commands that might cause issues)
+# Import the data (skip the database creation/dropping commands at the beginning)
+# Start importing from the table creation section
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" -c "
 -- Clean up existing tables if they exist
 DROP TABLE IF EXISTS playlist_track CASCADE;
@@ -46,8 +33,10 @@ DROP TABLE IF EXISTS customer CASCADE;
 DROP TABLE IF EXISTS employee CASCADE;
 " 2>/dev/null || true
 
-# Now import the schema and data
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" -f "$SQL_FILE"
+# Import only the table creation and data parts (skip database commands)
+echo "Creating tables and importing data..."
+# Skip the first 28 lines (database creation commands) and import the rest
+tail -n +29 "$SQL_FILE" | psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB"
 
 echo "Chinook database setup complete!"
 echo "Available tables:"

@@ -25,7 +25,7 @@ services:
       - "8080:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
-      - ./servers.json:/var/lib/pgadmin/storage/admin_chinook.com/servers.json
+      - ./pgadmin-config:/var/lib/pgadmin/storage/admin_chinook.com
     networks:
       - chinook_network
     depends_on:
