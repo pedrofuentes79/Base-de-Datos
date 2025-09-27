@@ -12,27 +12,21 @@ This setup provides a PostgreSQL database with the Chinook sample database and p
 
 1. **Make sure Docker is running** 
 
-2. **Start the services:**
+2. **Build the services:**
+   ```bash
+   docker-compose build --no-cache
+   ```
+
+3. **Start the services:**
    ```bash
    ./start.sh
    ```
 
-3. **Access pgAdmin:**
+4. **Access pgAdmin:**
    - Open your browser and go to: http://localhost:8080
    - Login with:
      - Email: admin@chinook.com
      - Password: password
-
-4. **Connect to PostgreSQL in pgAdmin:**
-   - http://localhost:8080
-   - When prompted for a password, just use "password" every time.
-
-5. **Direct PostgreSQL connection:**
-   - Host: localhost
-   - Port: 5432
-   - Database: chinook
-   - Username: postgres
-   - Password: password
 
 ## Manual Connection Setup (if needed)
 
