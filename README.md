@@ -28,6 +28,17 @@ This setup provides a PostgreSQL database with the Chinook sample database and p
      - Email: admin@chinook.com
      - Password: password
 
+## If something doesn't work
+Try a hard-reset
+```bash
+docker-compose down --remove-orphans
+docker volume rm base-de-datos_pgadmin_data
+docker volume rm base-de-datos_postgres_data
+docker-compose build --no-cache
+./start.sh
+```
+Otherwise try to debug or open an issue :D
+
 ## Manual Connection Setup (if needed)
 
 If you need to manually add a server connection in pgAdmin:
@@ -38,17 +49,6 @@ If you need to manually add a server connection in pgAdmin:
 - **Maintenance Database**: `chinook`
 - **Username**: `postgres`
 - **Password**: `password`
-
-## Full reset
-If you want to reset the database, pgadmin and start from scratch, do:
-```bash
-docker-compose down --remove-orphans
-docker volume rm base-de-datos_pgadmin_data
-docker volume rm base-de-datos_postgres_data
-./start.sh
-```
-
-You can also delete the docker volumes/images and pull new ones.
 
 
 ## Data Persistence
