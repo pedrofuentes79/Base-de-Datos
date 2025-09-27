@@ -45,6 +45,17 @@ If you need to manually add a server connection in pgAdmin:
 - **Username**: `postgres`
 - **Password**: `password`
 
+## Full reset
+If you want to reset the database, pgadmin and start from scratch, do:
+```bash
+docker-compose down --remove-orphans
+docker volume rm base-de-datos_pgadmin_data
+docker volume rm base-de-datos_postgres_data
+./start.sh
+```
+
+You can also delete the docker volumes/images and pull new ones.
+
 
 ## Data Persistence
 

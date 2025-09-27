@@ -15,17 +15,17 @@ services:
       - chinook_network
 
   pgadmin:
-    image: dpage/pgadmin4:latest
+    build:
+      context: ./pgadmin-config
+      dockerfile: Dockerfile
     container_name: chinook_pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@chinook.com
       PGADMIN_DEFAULT_PASSWORD: password
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
     ports:
       - "8080:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
-      - ./pgadmin-config:/var/lib/pgadmin/storage/admin_chinook.com
     networks:
       - chinook_network
     depends_on:

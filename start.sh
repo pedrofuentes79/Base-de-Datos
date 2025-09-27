@@ -47,7 +47,7 @@ if docker-compose ps | grep -q "Up"; then
 
     echo "pgAdmin: http://localhost:8080"
     echo "Email: admin@chinook.com"
-    echo "Password: admin"
+    echo "Password: password"
     echo ""
     echo "PostgreSQL (for manual connections):"
     echo "Host: localhost"
