@@ -19,7 +19,7 @@ services:
     container_name: chinook_pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@chinook.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_PASSWORD: password
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     ports:
       - "8080:80"
