@@ -1,10 +1,12 @@
 # Docker volumes (data persists in Docker, not in git)
+# sqlserver_data/
 # postgres_data/
 # pgadmin_data/
 
 # Temporary files
 *.tmp
 *.log
+/tmp/
 
 # OS files
 .DS_Store
@@ -12,7 +14,12 @@ Thumbs.db
 
 # Downloaded SQL files
 init/Chinook_PostgreSql.sql
+init/Chinook_SqlServer.sql
+/tmp/Chinook_SqlServer.sql
 
-# pgAdmin backup files
+# pgAdmin backup files (from old setup)
 pgadmin-config/servers.json.backup*
 
+# Backup files (keep the main .bak file but ignore copies)
+*.bak.tmp
+*_backup.bak
